@@ -11,8 +11,13 @@ public class ConsoleUI {
     }
 
     public void Show() {
+
+        string command= "continue";
+
+
+        while(command == "continue"){
         
-        var mode = AnsiConsole.Prompt(
+            var mode = AnsiConsole.Prompt(
 				            new SelectionPrompt<string>()
 				                .Title("Please select mode")
 				                .AddChoices(new[] {
@@ -20,7 +25,7 @@ public class ConsoleUI {
 				                }));
 
 
-        if(mode=="driver") {
+            if(mode=="driver") {
 
             var selectedDriver = AnsiConsole.Prompt(
 				            new SelectionPrompt<Driver>()
@@ -35,7 +40,7 @@ public class ConsoleUI {
 				                .AddChoices(dataManager.Loops));
             Console.WriteLine("You selected "+selectedLoop.Name+" loop!");
 
-            string command;
+            //string command;
 
             do {
                 Stop selectedStop = AnsiConsole.Prompt(
@@ -60,16 +65,17 @@ public class ConsoleUI {
 
             } while(command!="end");
 
-        } else if(mode=="manager") {
+            } else if(mode=="manager") {
 
-            string command;
+            //string command;
             do {
                 
                 command = AnsiConsole.Prompt(
 				                    new SelectionPrompt<string>()
 				                        .Title("What do you want to do?")
 				                        .AddChoices(new[] {
-				                            "show busiest stop","add stop","delete stop", "list stops", "end"
+				                            "show busiest stop","add stop","delete stop", "list stops","add driver",
+                                             "delete driver", "end"
 				                        }));
 
                 if(command=="add stop") {
@@ -95,13 +101,32 @@ public class ConsoleUI {
                     var result = Reporter.FindBusiestStop(dataManager.PassengerData);
                     Console.WriteLine("The busiest stop is: "+result.Name);
                 }
-
+                else if(command =="add driver")
+                    {
+                        var newDriverName = AnsiConsole.Prompt(new TextPrompt<string>("Enter new driver name:"));
+                        dataManager.AddDriver(new Driver(newDriverName));
+                    }
+                    else if (command =="delete driver")
+                    {
+                        Driver selectedDriver = AnsiConsole.Prompt(
+				            new SelectionPrompt<Driver>()
+				                .Title("Select a Driver")
+				                .AddChoices(dataManager.Drivers));
+                        dataManager.RemoveDriver(selectedDriver);
+                    }
 
             } while(command!="end");
 
+
+            
+            }
+            
+            command = AnsiConsole.Prompt(
+				new SelectionPrompt<string>()
+				    .Title("Please select continue or end (continue or end)?")
+				        .AddChoices(new[] {"continue","quit"}));
         }
     }
-
     public static string AskForInput(string message) {
         Console.Write(message);
         return Console.ReadLine();

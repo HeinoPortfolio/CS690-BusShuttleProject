@@ -8,6 +8,7 @@ public class DataManagerTests
 
     public DataManagerTests() {
         File.WriteAllText("stops.txt","One"+Environment.NewLine+"Two"+Environment.NewLine+"Three"+Environment.NewLine+"Four"+Environment.NewLine+"Five");
+         File.WriteAllText("drivers.txt","John Doe");
         dataManager = new DataManager();
     }
 

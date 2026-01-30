@@ -32,8 +32,16 @@ public class DataManager {
         Loops[0].Stops.Add(Stops[4]);
 
         Drivers = new List<Driver>();
-        Drivers.Add(new Driver("Huseyin Ergin"));
-        Drivers.Add(new Driver("Jane Doe"));
+       // Drivers.Add(new Driver("Huseyin Ergin"));
+        //Drivers.Add(new Driver("Jane Doe"));
+
+        var driversFileContent = File.ReadAllLines("drivers.txt");
+        // Add the drivers to the driver's list
+        foreach(var driverName in driversFileContent)
+        {
+            Drivers.Add(new Driver(driverName));
+        }
+
 
         PassengerData = new List<PassengerData>();
 
@@ -77,5 +85,28 @@ public class DataManager {
     public void RemoveStop(Stop stop) {
         Stops.Remove(stop);
         SynchronizeStops();
+    }
+
+      // New additions for adding and removing the driver
+    // Add the driver to the list of drivers and synchonize
+    public void AddDriver(Driver driver)
+    {
+        Drivers.Add(driver);
+        SynchronizeDrivers();
+    }
+
+    // Remove the driver from the list of drivers and synchronze  
+    public void RemoveDriver(Driver driver)
+    {
+        Drivers.Remove(driver);
+        SynchronizeDrivers();
+    }
+
+    // Synchronize the list of drivers
+    public void SynchronizeDrivers() {
+        File.Delete("drivers.txt");
+        foreach(var driver in Drivers) {
+            File.AppendAllText("drivers.txt",driver.Name+Environment.NewLine);
+        }
     }
 }
