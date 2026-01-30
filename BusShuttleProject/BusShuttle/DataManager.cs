@@ -32,8 +32,6 @@ public class DataManager {
         Loops[0].Stops.Add(Stops[4]);
 
         Drivers = new List<Driver>();
-       // Drivers.Add(new Driver("Huseyin Ergin"));
-        //Drivers.Add(new Driver("Jane Doe"));
 
         var driversFileContent = File.ReadAllLines("drivers.txt");
         // Add the drivers to the driver's list
@@ -87,7 +85,7 @@ public class DataManager {
         SynchronizeStops();
     }
 
-      // New additions for adding and removing the driver
+    // New additions for adding and removing the driver
     // Add the driver to the list of drivers and synchonize
     public void AddDriver(Driver driver)
     {
