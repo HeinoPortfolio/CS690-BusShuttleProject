@@ -1,3 +1,3 @@
 # CS690-BusShuttleProject
 
-This project is completed by Huseyin Ergin
+This project is completed by Matthew Heino
