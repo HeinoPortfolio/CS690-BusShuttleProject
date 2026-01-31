@@ -75,7 +75,7 @@ public class ConsoleUI {
 				                        .Title("What do you want to do?")
 				                        .AddChoices(new[] {
 				                            "show busiest stop","add stop","delete stop", "list stops","add driver",
-                                             "delete driver", "end"
+                                             "remove driver", "end"
 				                        }));
 
                 if(command=="add stop") {
@@ -106,7 +106,7 @@ public class ConsoleUI {
                         var newDriverName = AnsiConsole.Prompt(new TextPrompt<string>("Enter new driver name:"));
                         dataManager.AddDriver(new Driver(newDriverName));
                     }
-                    else if (command =="delete driver")
+                    else if (command =="remove driver")
                     {
                         Driver selectedDriver = AnsiConsole.Prompt(
 				            new SelectionPrompt<Driver>()
